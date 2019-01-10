@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.giftmoney.mapper.ArticleMapper">
+
+    <select id="selectById" resultType="com.demo.giftmoney.domain.Article" parameterType="java.lang.Integer">
+        select * from `article` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.demo.giftmoney.domain.Article" parameterType="java.util.Map">
+        select * from `article` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.demo.giftmoney.domain.Article" parameterType="java.util.Map">
+        select * from `article` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `article` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.demo.giftmoney.domain.Article" useGeneratedKeys="true" keyProperty="id">
+        insert into `article`
+        (
+        `title`,
+        `author`,
+        `img`,
+        `content`,
+        `giftMoneyId`,
+        `browseCount`,
+        `maxLevel`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        )
+        values
+        (
+        #{title},
+        #{author},
+        #{img},
+        #{content},
+        #{giftMoneyId},
+        #{browseCount},
+        #{maxLevel},
+        #{createBy},
+        #{createBy},
+        #{status},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.demo.giftmoney.domain.Article">
+        update `article` set
+        `title` = #{title},
+        `author` = #{author},
+        `img` = #{img},
+        `content` = #{content},
+        `giftMoneyId` = #{giftMoneyId},
+        `browseCount` = #{browseCount},
+        `maxLevel` = #{maxLevel},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `article` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

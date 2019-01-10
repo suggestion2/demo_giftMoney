@@ -1,0 +1,75 @@
+package com.demo.giftmoney.request;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+public class ArticleCreateForm {
+
+    @NotEmpty
+    private String title;
+    @NotEmpty
+    private String author;
+    @NotEmpty
+    private String img;
+    @NotEmpty
+    private String content;
+    @NotNull
+    private Integer giftMoneyId;
+    @NotNull
+    private Integer browseCount;
+    @NotNull
+    private Integer maxLevel;
+
+    public String getTitle() {
+    return title;
+    }
+
+    public void setTitle(String title) {
+    this.title = title;
+    }
+    public String getAuthor() {
+    return author;
+    }
+
+    public void setAuthor(String author) {
+    this.author = author;
+    }
+    public String getImg() {
+    return img;
+    }
+
+    public void setImg(String img) {
+    this.img = img;
+    }
+    public String getContent() {
+    return content;
+    }
+
+    public void setContent(String content) {
+    this.content = content;
+    }
+    public Integer getGiftMoneyId() {
+    return giftMoneyId;
+    }
+
+    public void setGiftMoneyId(Integer giftMoneyId) {
+    this.giftMoneyId = giftMoneyId;
+    }
+    public Integer getBrowseCount() {
+    return browseCount;
+    }
+
+    public void setBrowseCount(Integer browseCount) {
+    this.browseCount = browseCount;
+    }
+    public Integer getMaxLevel() {
+    return maxLevel;
+    }
+
+    public void setMaxLevel(Integer maxLevel) {
+    this.maxLevel = maxLevel;
+    }
+
+}
