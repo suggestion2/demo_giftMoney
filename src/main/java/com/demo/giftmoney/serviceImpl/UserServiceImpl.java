@@ -1,5 +1,6 @@
 package com.demo.giftmoney.serviceImpl;
 
+import com.demo.giftmoney.context.SessionContext;
 import com.demo.giftmoney.domain.User;
 import com.demo.giftmoney.service.UserService;
 import com.demo.giftmoney.mapper.UserMapper;
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private SessionContext sessionContext;
+
     @Override
     public User getById(Integer id){
         return userMapper.selectById(id);
@@ -25,6 +29,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getByName(String user) {
         return userMapper.select(Collections.singletonMap("name",user));
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return sessionContext.getUser();
     }
 
     @Override

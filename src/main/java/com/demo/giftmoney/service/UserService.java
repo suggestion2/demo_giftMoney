@@ -13,6 +13,8 @@ public interface UserService {
 
     User getByName(String user);
 
+    User getCurrentUser();
+
     User select(Map<String, Object> map);
 
     List<User> selectList(Map<String, Object> map);

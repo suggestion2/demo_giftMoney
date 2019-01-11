@@ -22,7 +22,7 @@
     <div id="tabs-2" style="width: 2000px;display: block">
         <div style="float: left; width: 400px;">
             <h2>基本功能(common)</h2>
-            <div style="color: red;">
+            <div>
                 <strong>[登录]</strong><br/>
                 用户名:<input class="textbox" type="text" id="login-name" style="width: 100px;"
                            value="admin"/>
@@ -30,13 +30,35 @@
                           value="123456"/>
                 <input type="button" value="登录" onclick="commonModule.login()"/><br>
             </div>
-            <div style="color: red;">
+            <div>
                 <strong>[当前用户]</strong><br/>
                 <input type="button" value="获取" onclick="commonModule.currentUser()"/><br>
             </div>
-            <div style="color: red;">
+            <div>
                 <strong>[登出]</strong><br/>
                 <input type="button" value="登出" onclick="commonModule.logout()"/><br>
+            </div>
+
+            <h2>客户(customer)</h2>
+            <div>
+                <strong>[list]</strong><br/>
+                content:<input class="textbox" type="text" id="customer-list-content" style="width: 100px;"
+                           value=""/><br>
+                pageIndex:<input class="textbox" type="text" id="customer-list-pageIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="getList" onclick="customerModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[enable/disable]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-status-id" style="width: 100px;"
+                           value="1"/>
+                status:<select class="textbox" id="customer-status-status" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="change" onclick="customerModule.status()"/><br>
             </div>
         </div>
     </div>

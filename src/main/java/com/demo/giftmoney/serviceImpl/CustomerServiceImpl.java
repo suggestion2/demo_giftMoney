@@ -1,6 +1,7 @@
 package com.demo.giftmoney.serviceImpl;
 
 import com.demo.giftmoney.domain.Customer;
+import com.demo.giftmoney.response.CustomerListItemView;
 import com.demo.giftmoney.service.CustomerService;
 import com.demo.giftmoney.mapper.CustomerMapper;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public List<CustomerListItemView> selectItemViewList(Map<String, Object> map) {
+        return customerMapper.selectItemViewList(map);
+    }
+
+    @Override
     public int selectCount(Map<String, Object> map){
         return customerMapper.selectCount(map);
     }
@@ -43,6 +49,11 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int update(Customer customer){
         return customerMapper.update(customer);
+    }
+
+    @Override
+    public int updateStatus(Customer customer) {
+        return customerMapper.updateStatus(customer);
     }
 
     @Override

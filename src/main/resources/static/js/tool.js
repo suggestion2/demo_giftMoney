@@ -128,3 +128,31 @@ var commonModule = {
         showResult(settings);
     }
 };
+
+var customerModule = {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/customer/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#customer-list-content").val(),
+                "pageIndex": $("#customer-list-pageIndex").val(),
+                "pageSize": $("#customer-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    status: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/customer/status",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-status-id").val(),
+                "status": $("#customer-status-status").val()
+            })
+        };
+        showResult(settings);
+    }
+};

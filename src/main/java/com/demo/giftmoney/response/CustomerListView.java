@@ -6,18 +6,18 @@ import com.demo.giftmoney.domain.Customer;
 
 import java.util.List;
 
-public class CustomerListView extends PaginationView<Customer>{
+public class CustomerListView extends PaginationView<CustomerListItemView> {
 
-        @Autowired
-        public CustomerListView() {
-        }
+    @Autowired
+    public CustomerListView() {
+    }
 
-        public CustomerListView(List<Customer> list,int count) {
-            this.setList(list);
-            this.setCount(count);
-        }
+    public CustomerListView(List<CustomerListItemView> list, int count) {
+        this.setList(list);
+        this.setCount(count);
+    }
 
-        public CustomerListView(List<Customer> list) {
-            this.setList(list);
-        }
+    public CustomerListView(List<CustomerListItemView> list) {
+        this.setList(list);
+    }
 }

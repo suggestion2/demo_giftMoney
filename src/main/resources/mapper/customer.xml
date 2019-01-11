@@ -22,14 +22,40 @@
             limit #{startIndex},#{pageSize}
         </if>
     </select>
-
-    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-        select count(*) from `customer` where `valid` = 1
-        <if test="id!=null">
-
+    
+    <select id="selectItemViewList" resultType="com.demo.giftmoney.response.CustomerListItemView" parameterType="java.util.Map">
+        select
+        `c`.nickname,
+        concat(`c`.province,`c`.city,`c`.county) as area,
+        `c`.parentNickname,
+        `c`.status,
+        count(`g`.id) as giftMoneyCount,
+        COALESCE(sum(`g`.amount), 0) as giftMoneyAmount,
+        COALESCE(sum(`ac`.sharingPath1Count), 0) as sharingPath1Count,
+        COALESCE(sum(`ac`.sharingPath2Count), 0) as sharingPath2Count,
+        count(`ac`.id) as directUV,
+        COALESCE(sum(`ac`.browseCount), 0) as directPV
+        from `customer` `c`
+        left join gift_money_record g on `c`.id = `g`.customerId and `g`.valid = 1
+        left join article_record `ac` on `c`.id = `ac`.customerId and `ac`.valid = 1
+        left join article_record `as` on `c`.id = `as`.sourceCustomerId and `as`.valid = 1
+        where `c`.`valid` = 1
+        <if test="content!=null">
+            `c`.nickname like concat('%',#{content},'%')
+        </if>
+        group by `c`.id
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
         </if>
     </select>
-
+    
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `customer` where `valid` = 1
+        <if test="content!=null">
+            nickname like concat('%',#{content},'%')
+        </if>
+    </select>
+    
     <insert id="insert" parameterType="com.demo.giftmoney.domain.Customer" useGeneratedKeys="true" keyProperty="id">
         insert into `customer`
         (
@@ -88,7 +114,15 @@
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
+    <update id="updateStatus" parameterType="com.demo.giftmoney.domain.Customer">
+        update `customer` set
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `customer` set valid = 0 where `id` = #{id}
     </delete>
