@@ -21,5 +21,7 @@ public interface GiftMoneyService {
 
     int update(GiftMoney giftMoney);
 
+    int updateStatus(GiftMoney giftMoney);
+
     int deleteById(Integer id);
 }

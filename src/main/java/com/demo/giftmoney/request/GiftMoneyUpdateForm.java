@@ -2,6 +2,7 @@ package com.demo.giftmoney.request;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -10,16 +11,18 @@ public class GiftMoneyUpdateForm {
     @NotNull
     private Integer id;
     @NotEmpty
-    private String number;
-    @NotEmpty
     private String title;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal totalAmount;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal remainAmount;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal low;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal upper;
     @NotNull
     private Date startDate;
@@ -27,11 +30,13 @@ public class GiftMoneyUpdateForm {
     private Date endDate;
     @NotNull
     private Integer areaId;
-    @NotEmpty
-    private String area;
+    private String province;
+    private String city;
+    private String county;
     @NotNull
     private Integer sharingPath;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal sharingLimit;
 
     public Integer getId() {
@@ -40,13 +45,6 @@ public class GiftMoneyUpdateForm {
 
     public void setId(Integer id) {
     this.id = id;
-    }
-    public String getNumber() {
-    return number;
-    }
-
-    public void setNumber(String number) {
-    this.number = number;
     }
     public String getTitle() {
     return title;
@@ -104,13 +102,31 @@ public class GiftMoneyUpdateForm {
     public void setAreaId(Integer areaId) {
     this.areaId = areaId;
     }
-    public String getArea() {
-    return area;
+
+    public String getProvince() {
+        return province;
     }
 
-    public void setArea(String area) {
-    this.area = area;
+    public void setProvince(String province) {
+        this.province = province;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
     public Integer getSharingPath() {
     return sharingPath;
     }

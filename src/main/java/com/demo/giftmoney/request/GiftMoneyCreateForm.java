@@ -2,22 +2,22 @@ package com.demo.giftmoney.request;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class GiftMoneyCreateForm {
 
     @NotEmpty
-    private String number;
-    @NotEmpty
     private String title;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal totalAmount;
     @NotNull
-    private BigDecimal remainAmount;
-    @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal low;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal upper;
     @NotNull
     private Date startDate;
@@ -25,96 +25,108 @@ public class GiftMoneyCreateForm {
     private Date endDate;
     @NotNull
     private Integer areaId;
-    @NotEmpty
-    private String area;
+    private String province;
+    private String city;
+    private String county;
     @NotNull
     private Integer sharingPath;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal sharingLimit;
 
-    public String getNumber() {
-    return number;
-    }
-
-    public void setNumber(String number) {
-    this.number = number;
-    }
     public String getTitle() {
-    return title;
+        return title;
     }
 
     public void setTitle(String title) {
-    this.title = title;
+        this.title = title;
     }
+
     public BigDecimal getTotalAmount() {
-    return totalAmount;
+        return totalAmount;
     }
 
     public void setTotalAmount(BigDecimal totalAmount) {
-    this.totalAmount = totalAmount;
-    }
-    public BigDecimal getRemainAmount() {
-    return remainAmount;
+        this.totalAmount = totalAmount;
     }
 
-    public void setRemainAmount(BigDecimal remainAmount) {
-    this.remainAmount = remainAmount;
-    }
     public BigDecimal getLow() {
-    return low;
+        return low;
     }
 
     public void setLow(BigDecimal low) {
-    this.low = low;
+        this.low = low;
     }
+
     public BigDecimal getUpper() {
-    return upper;
+        return upper;
     }
 
     public void setUpper(BigDecimal upper) {
-    this.upper = upper;
+        this.upper = upper;
     }
+
     public Date getStartDate() {
-    return startDate;
+        return startDate;
     }
 
     public void setStartDate(Date startDate) {
-    this.startDate = startDate;
+        this.startDate = startDate;
     }
+
     public Date getEndDate() {
-    return endDate;
+        return endDate;
     }
 
     public void setEndDate(Date endDate) {
-    this.endDate = endDate;
+        this.endDate = endDate;
     }
+
     public Integer getAreaId() {
-    return areaId;
+        return areaId;
     }
 
     public void setAreaId(Integer areaId) {
-    this.areaId = areaId;
-    }
-    public String getArea() {
-    return area;
+        this.areaId = areaId;
     }
 
-    public void setArea(String area) {
-    this.area = area;
+    public String getProvince() {
+        return province;
     }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
     public Integer getSharingPath() {
-    return sharingPath;
+        return sharingPath;
     }
 
     public void setSharingPath(Integer sharingPath) {
-    this.sharingPath = sharingPath;
+        this.sharingPath = sharingPath;
     }
+
     public BigDecimal getSharingLimit() {
-    return sharingLimit;
+        return sharingLimit;
     }
 
     public void setSharingLimit(BigDecimal sharingLimit) {
-    this.sharingLimit = sharingLimit;
+        this.sharingLimit = sharingLimit;
     }
-
 }

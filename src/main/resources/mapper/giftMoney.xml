@@ -15,8 +15,8 @@
 
     <select id="selectList" resultType="com.demo.giftmoney.domain.GiftMoney" parameterType="java.util.Map">
         select * from `gift_money` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`title` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +25,8 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `gift_money` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`title` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
         </if>
     </select>
 
@@ -42,12 +42,13 @@
         `startDate`,
         `endDate`,
         `areaId`,
-        `area`,
+        `province`,
+        `city`,
+        `county`,
         `sharingPath`,
         `sharingLimit`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -60,18 +61,18 @@
         #{startDate},
         #{endDate},
         #{areaId},
-        #{area},
+        #{province},
+        #{city},
+        #{county},
         #{sharingPath},
         #{sharingLimit},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 
     <update id="update" parameterType="com.demo.giftmoney.domain.GiftMoney">
         update `gift_money` set
-        `number` = #{number},
         `title` = #{title},
         `totalAmount` = #{totalAmount},
         `remainAmount` = #{remainAmount},
@@ -80,15 +81,24 @@
         `startDate` = #{startDate},
         `endDate` = #{endDate},
         `areaId` = #{areaId},
-        `area` = #{area},
+        `province` = #{province},
+        `city` = #{city},
+        `county` = #{county},
         `sharingPath` = #{sharingPath},
         `sharingLimit` = #{sharingLimit},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    <update id="updateStatus" parameterType="com.demo.giftmoney.domain.GiftMoney">
+        update `gift_money` set
         `updateBy` = #{updateBy},
         `status` = #{status},
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `gift_money` set valid = 0 where `id` = #{id}
     </delete>

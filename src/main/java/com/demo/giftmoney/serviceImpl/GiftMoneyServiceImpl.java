@@ -46,6 +46,11 @@ public class GiftMoneyServiceImpl implements GiftMoneyService{
     }
 
     @Override
+    public int updateStatus(GiftMoney giftMoney) {
+        return giftMoneyMapper.updateStatus(giftMoney);
+    }
+
+    @Override
     public int deleteById(Integer id){
         return giftMoneyMapper.deleteById(id);
     }

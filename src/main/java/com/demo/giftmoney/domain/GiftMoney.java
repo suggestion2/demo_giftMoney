@@ -1,5 +1,9 @@
 package com.demo.giftmoney.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,17 +16,26 @@ public class GiftMoney {
     private BigDecimal remainAmount;
     private BigDecimal low;
     private BigDecimal upper;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date startDate;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date endDate;
     private Integer areaId;
-    private String area;
+    private String province;
+    private String city;
+    private String county;
     private Integer sharingPath;
     private BigDecimal sharingLimit;
+    @JsonIgnore
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
 
     public Integer getId() {
@@ -95,13 +108,31 @@ public class GiftMoney {
     public void setAreaId(Integer areaId) {
         this.areaId = areaId;
     }
-    public String getArea() {
-        return area;
+
+    public String getProvince() {
+        return province;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setProvince(String province) {
+        this.province = province;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
     public Integer getSharingPath() {
         return sharingPath;
     }

@@ -156,3 +156,86 @@ var customerModule = {
         showResult(settings);
     }
 };
+
+var giftMoneyModule = {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/giftMoney/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#giftMoney-list-content").val(),
+                "type": $("#giftMoney-list-type").val(),
+                "pageIndex": $("#giftMoney-list-pageIndex").val(),
+                "pageSize": $("#giftMoney-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/giftMoney/" + $("#giftMoney-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/giftMoney/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "title": $("#giftMoney-create-title").val(),
+                "totalAmount": $("#giftMoney-create-totalAmount").val(),
+                "low": $("#giftMoney-create-low").val(),
+                "upper": $("#giftMoney-create-upper").val(),
+                "startDate": $("#giftMoney-create-startDate").val(),
+                "endDate": $("#giftMoney-create-endDate").val(),
+                "areaId": $("#giftMoney-create-areaId").val(),
+                "province": $("#giftMoney-create-province").val(),
+                "city": $("#giftMoney-create-city").val(),
+                "county": $("#giftMoney-create-county").val(),
+                "sharingPath": $("#giftMoney-create-sharingPath").val(),
+                "sharingLimit": $("#giftMoney-create-sharingLimit").val()
+            })
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/giftMoney/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#giftMoney-update-id").val(),
+                "title": $("#giftMoney-update-title").val(),
+                "remainAmount": $("#giftMoney-update-remainAmount").val(),
+                "totalAmount": $("#giftMoney-update-totalAmount").val(),
+                "low": $("#giftMoney-update-low").val(),
+                "upper": $("#giftMoney-update-upper").val(),
+                "startDate": $("#giftMoney-update-startDate").val(),
+                "endDate": $("#giftMoney-update-endDate").val(),
+                "areaId": $("#giftMoney-update-areaId").val(),
+                "province": $("#giftMoney-update-province").val(),
+                "city": $("#giftMoney-update-city").val(),
+                "county": $("#giftMoney-update-county").val(),
+                "sharingPath": $("#giftMoney-update-sharingPath").val(),
+                "sharingLimit": $("#giftMoney-update-sharingLimit").val()
+            })
+        };
+        showResult(settings);
+    },
+    status: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/giftMoney/status",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#giftMoney-status-id").val(),
+                "status": $("#giftMoney-status-status").val()
+            })
+        };
+        showResult(settings);
+    }
+};
