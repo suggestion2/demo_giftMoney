@@ -239,3 +239,71 @@ var giftMoneyModule = {
         showResult(settings);
     }
 };
+
+var articleModule = {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/article/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#article-list-content").val(),
+                "type": $("#article-list-type").val(),
+                "pageIndex": $("#article-list-pageIndex").val(),
+                "pageSize": $("#article-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/article/" + $("#article-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/article/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "title": $("#article-create-title").val(),
+                "author": $("#article-create-author").val(),
+                "img": $("#article-create-img").val(),
+                "content": $("#article-create-content").val(),
+                "giftMoneyId": $("#article-create-giftMoneyId").val()
+            })
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/article/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#article-update-id").val(),
+                "title": $("#article-update-title").val(),
+                "author": $("#article-update-author").val(),
+                "img": $("#article-update-img").val(),
+                "content": $("#article-update-content").val(),
+                "giftMoneyId": $("#article-update-giftMoneyId").val()
+            })
+        };
+        showResult(settings);
+    },
+    status: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/article/status",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#article-status-id").val(),
+                "status": $("#article-status-status").val()
+            })
+        };
+        showResult(settings);
+    }
+};

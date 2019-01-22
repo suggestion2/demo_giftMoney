@@ -17,10 +17,6 @@ public class ArticleCreateForm {
     private String content;
     @NotNull
     private Integer giftMoneyId;
-    @NotNull
-    private Integer browseCount;
-    @NotNull
-    private Integer maxLevel;
 
     public String getTitle() {
     return title;
@@ -56,20 +52,6 @@ public class ArticleCreateForm {
 
     public void setGiftMoneyId(Integer giftMoneyId) {
     this.giftMoneyId = giftMoneyId;
-    }
-    public Integer getBrowseCount() {
-    return browseCount;
-    }
-
-    public void setBrowseCount(Integer browseCount) {
-    this.browseCount = browseCount;
-    }
-    public Integer getMaxLevel() {
-    return maxLevel;
-    }
-
-    public void setMaxLevel(Integer maxLevel) {
-    this.maxLevel = maxLevel;
     }
 
 }

@@ -19,10 +19,6 @@ public class ArticleUpdateForm {
     private String content;
     @NotNull
     private Integer giftMoneyId;
-    @NotNull
-    private Integer browseCount;
-    @NotNull
-    private Integer maxLevel;
 
     public Integer getId() {
     return id;
@@ -65,20 +61,6 @@ public class ArticleUpdateForm {
 
     public void setGiftMoneyId(Integer giftMoneyId) {
     this.giftMoneyId = giftMoneyId;
-    }
-    public Integer getBrowseCount() {
-    return browseCount;
-    }
-
-    public void setBrowseCount(Integer browseCount) {
-    this.browseCount = browseCount;
-    }
-    public Integer getMaxLevel() {
-    return maxLevel;
-    }
-
-    public void setMaxLevel(Integer maxLevel) {
-    this.maxLevel = maxLevel;
     }
 
 }

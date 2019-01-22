@@ -8,16 +8,33 @@
 
     <select id="select" resultType="com.demo.giftmoney.domain.Article" parameterType="java.util.Map">
         select * from `article` where `valid` = 1
-        <if test="id!=null">
-            and `id` = #{id}
+        <if test="title!=null">
+            and `title` = #{title}
         </if>
     </select>
 
-    <select id="selectList" resultType="com.demo.giftmoney.domain.Article" parameterType="java.util.Map">
-        select * from `article` where `valid` = 1
-        <if test="id!=null">
-
+    <select id="selectViewList" resultType="com.demo.giftmoney.response.ArticleListItemView" parameterType="java.util.Map">
+        select
+        a.id,a.title,a.author,a.status
+        <if test="type!=null and type == 2">
+            ,COALESCE(sum(r.sharingPath1Count) + sum(r.sharingPath2Count), 0) as sharingCount
+            ,COALESCE(max(r.degree),0) as maxLevel
+            ,COALESCE(sum(r.pageView), 0) as pv
+            ,count(r.id) as uv
+            ,COALESCE(sum(r.duration), 0) as totalDuration
+            ,COALESCE(sum(g.amount), 0) as receiveAmount
+            ,count(g.id) as receiveCount
         </if>
+        from `article` a
+        <if test="type!=null and type == 2">
+            left join article_record r on a.id = r.articleId and r.valid = 1
+            left join gift_money_record g on a.giftMoneyId = g.giftMoneyId and g.valid = 1 and g.status = 2
+        </if>
+        where a.`valid` = 1
+        <if test="content!=null">
+            and (a.title like concat ('%',#{content},'%') or a.author like concat ('%',#{content},'%'))
+        </if>
+        group by a.id
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -25,8 +42,8 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `article` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (title like concat ('%',#{content},'%') or author like concat ('%',#{content},'%'))
         </if>
     </select>
 
@@ -38,11 +55,8 @@
         `img`,
         `content`,
         `giftMoneyId`,
-        `browseCount`,
-        `maxLevel`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -51,11 +65,8 @@
         #{img},
         #{content},
         #{giftMoneyId},
-        #{browseCount},
-        #{maxLevel},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 
@@ -66,14 +77,19 @@
         `img` = #{img},
         `content` = #{content},
         `giftMoneyId` = #{giftMoneyId},
-        `browseCount` = #{browseCount},
-        `maxLevel` = #{maxLevel},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    <update id="updateStatus" parameterType="com.demo.giftmoney.domain.Article">
+        update `article` set
         `updateBy` = #{updateBy},
         `status` = #{status},
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `article` set valid = 0 where `id` = #{id}
     </delete>

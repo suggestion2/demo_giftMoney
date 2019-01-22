@@ -163,6 +163,69 @@
                 <input type="button" value="change" onclick="giftMoneyModule.status()"/><br>
             </div>
         </div>
+        <div style="float: left; width: 400px;">
+            <h2>文章(article)</h2>
+            <div>
+                <strong>[list]</strong><br/>
+                content:<input class="textbox" type="text" id="article-list-content" style="width: 100px;"
+                               value=""/>
+                type:<select class="textbox" id="article-list-type" style="width: 100px;">
+                <option value="1">base</option>
+                <option value="2">statistic</option>
+            </select><br>
+                pageIndex:<input class="textbox" type="text" id="article-list-pageIndex" style="width: 100px;"
+                                 value="0"/>
+                pageSize:<input class="textbox" type="text" id="article-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="getList" onclick="articleModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[detail]</strong><br/>
+                id:<input class="textbox" type="text" id="article-detail-id" style="width: 100px;"
+                          value=""/><br>
+                <input type="button" value="detail" onclick="articleModule.detail()"/><br>
+            </div>
+            <div>
+                <strong>[create]</strong><br/>
+                title:<input class="textbox" type="text" id="article-create-title" style="width: 100px;"
+                             value=""/>
+                author:<input class="textbox" type="text" id="article-create-author" style="width: 100px;"
+                                   value=""/><br>
+                img:<input class="textbox" type="text" id="article-create-img" style="width: 100px;"
+                           value=""/>
+                content:<input class="textbox" type="text" id="article-create-content" style="width: 100px;"
+                             value=""/><br>
+                giftMoneyId:<input class="textbox" type="text" id="article-create-giftMoneyId" style="width: 100px;"
+                                 value=""/><br>
+                <input type="button" value="create" onclick="articleModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[update]</strong><br/>
+                id:<input class="textbox" type="text" id="article-update-id" style="width: 100px;"
+                          value=""/>
+                title:<input class="textbox" type="text" id="article-update-title" style="width: 100px;"
+                             value=""/><br>
+                author:<input class="textbox" type="text" id="article-update-author" style="width: 100px;"
+                              value=""/>
+                img:<input class="textbox" type="text" id="article-update-img" style="width: 100px;"
+                           value=""/><br>
+                content:<input class="textbox" type="text" id="article-update-content" style="width: 100px;"
+                               value=""/>
+                giftMoneyId:<input class="textbox" type="text" id="article-update-giftMoneyId" style="width: 100px;"
+                                   value=""/><br>
+                <input type="button" value="update" onclick="articleModule.update()"/><br>
+            </div>
+            <div>
+                <strong>[enable/disable]</strong><br/>
+                id:<input class="textbox" type="text" id="article-status-id" style="width: 100px;"
+                          value="1"/>
+                status:<select class="textbox" id="article-status-status" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="change" onclick="articleModule.status()"/><br>
+            </div>
+        </div>
     </div>
 
     <div style="clear: both;"></div>

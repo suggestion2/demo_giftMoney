@@ -1,5 +1,9 @@
 package com.demo.giftmoney.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,13 +15,20 @@ public class Article {
     private String img;
     private String content;
     private Integer giftMoneyId;
+    @JsonIgnore
     private Integer browseCount;
+    @JsonIgnore
     private Integer maxLevel;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
 
     public Integer getId() {

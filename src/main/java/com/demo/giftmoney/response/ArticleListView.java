@@ -6,18 +6,18 @@ import com.demo.giftmoney.domain.Article;
 
 import java.util.List;
 
-public class ArticleListView extends PaginationView<Article>{
+public class ArticleListView extends PaginationView<ArticleListItemView>{
 
         @Autowired
         public ArticleListView() {
         }
 
-        public ArticleListView(List<Article> list,int count) {
+        public ArticleListView(List<ArticleListItemView> list,int count) {
             this.setList(list);
             this.setCount(count);
         }
 
-        public ArticleListView(List<Article> list) {
+        public ArticleListView(List<ArticleListItemView> list) {
             this.setList(list);
         }
 }
