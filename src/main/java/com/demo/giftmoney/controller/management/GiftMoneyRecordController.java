@@ -33,28 +33,4 @@ public class GiftMoneyRecordController {
     public GiftMoneyRecordListView list(@Valid @RequestBody GiftMoneyRecordListForm form){
         return new GiftMoneyRecordListView(giftMoneyRecordService.selectList(form.getQueryMap()));
     }
-
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public GiftMoneyRecord detail(@PathVariable Integer id){
-        return giftMoneyRecordService.getById(id);
-    }
-
-    @RequestMapping(value = CREATE,method = RequestMethod.POST)
-    public SuccessView create(@Valid @RequestBody GiftMoneyRecordCreateForm form){
-        GiftMoneyRecord giftMoneyRecord = new GiftMoneyRecord();
-        BeanUtils.copyProperties(form,giftMoneyRecord);
-        giftMoneyRecordService.create(giftMoneyRecord);
-        return new SuccessView();
-    }
-
-    @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
-    public SuccessView update(@Valid @RequestBody GiftMoneyRecordUpdateForm form){
-        GiftMoneyRecord giftMoneyRecord = giftMoneyRecordService.getById(form.getId());
-        if(Objects.isNull(giftMoneyRecord)){
-            throw new ResourceNotFoundException("giftMoneyRecord not exists");
-        }
-        BeanUtils.copyProperties(form,giftMoneyRecord);
-        giftMoneyRecordService.update(giftMoneyRecord);
-        return new SuccessView();
-    }
 }

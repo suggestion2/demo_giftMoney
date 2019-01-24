@@ -31,30 +31,8 @@ public class ArticleRecordController {
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public ArticleRecordListView list(@Valid @RequestBody ArticleRecordListForm form){
-        return new ArticleRecordListView(articleRecordService.selectList(form.getQueryMap()));
+        return new ArticleRecordListView(articleRecordService.selectViewList(form.getQueryMap()),articleRecordService.selectCount(form.getQueryMap()));
     }
 
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public ArticleRecord detail(@PathVariable Integer id){
-        return articleRecordService.getById(id);
-    }
 
-    @RequestMapping(value = CREATE,method = RequestMethod.POST)
-    public SuccessView create(@Valid @RequestBody ArticleRecordCreateForm form){
-        ArticleRecord articleRecord = new ArticleRecord();
-        BeanUtils.copyProperties(form,articleRecord);
-        articleRecordService.create(articleRecord);
-        return new SuccessView();
-    }
-
-    @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
-    public SuccessView update(@Valid @RequestBody ArticleRecordUpdateForm form){
-        ArticleRecord articleRecord = articleRecordService.getById(form.getId());
-        if(Objects.isNull(articleRecord)){
-            throw new ResourceNotFoundException("articleRecord not exists");
-        }
-        BeanUtils.copyProperties(form,articleRecord);
-        articleRecordService.update(articleRecord);
-        return new SuccessView();
-    }
 }

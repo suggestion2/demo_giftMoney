@@ -19,7 +19,7 @@
         <if test="type!=null and type == 2">
             ,COALESCE(sum(r.sharingPath1Count) + sum(r.sharingPath2Count), 0) as sharingCount
             ,COALESCE(max(r.degree),0) as maxLevel
-            ,COALESCE(sum(r.pageView), 0) as pv
+            ,COALESCE(sum(r.browseCount), 0) as pv
             ,count(r.id) as uv
             ,COALESCE(sum(r.duration), 0) as totalDuration
             ,COALESCE(sum(g.amount), 0) as receiveAmount

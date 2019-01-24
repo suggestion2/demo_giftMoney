@@ -1,6 +1,7 @@
 package com.demo.giftmoney.service;
 
 import com.demo.giftmoney.domain.ArticleRecord;
+import com.demo.giftmoney.response.ArticleRecordListItemView;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public interface ArticleRecordService {
     ArticleRecord select(Map<String, Object> map);
 
     List<ArticleRecord> selectList(Map<String, Object> map);
+
+    List<ArticleRecordListItemView> selectViewList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 

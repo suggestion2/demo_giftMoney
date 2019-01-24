@@ -1,11 +1,16 @@
 package com.demo.giftmoney.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class GiftMoneyRecord {
 
     private Integer id;
+    @JsonIgnore
     private Integer wechatId;
     private Integer giftMoneyId;
     private Integer articleId;
@@ -14,18 +19,25 @@ public class GiftMoneyRecord {
     private String customerNickname;
     private BigDecimal amount;
     private Integer type;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date sendTime;
     private Date receiveTime;
     private Integer receiveStatus;
     private Integer refundStatus;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date refundTime;
     private String errorCode;
     private String failReason;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
 
     public Integer getId() {

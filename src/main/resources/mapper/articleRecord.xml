@@ -12,11 +12,39 @@
             and `id` = #{id}
         </if>
     </select>
-
+    
+    <select id="selectViewList" resultType="com.demo.giftmoney.response.ArticleRecordListItemView" parameterType="java.util.Map">
+        select
+        a.id,
+        a.articleId,
+        a.customerId,
+        a.parentId,
+        a.sourceCustomerId,
+        a.customerNickname,
+        a.sourceCustomerNickname,
+        a.degree as `level`,
+        a.duration as browseDuration,
+        a.browseCount,
+        COALESCE(count(a2.id),0) as directUV,
+        COALESCE(sum(g.amount),0) as receiveAmount,
+        a.sharingPath1Count,
+        a.sharingPath2Count,
+        from `article_record` a
+        left join `article_record` a2 on a.id = a2.parentId
+        left join `gift_money_record` g on a.articleId = g.articleId and a.customerId = g.customerId
+        where a.`valid` = 1
+        and a.`articleId` = #{id}
+        order by degree asc
+        group by a.customerId
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+    
     <select id="selectList" resultType="com.demo.giftmoney.domain.ArticleRecord" parameterType="java.util.Map">
         select * from `article_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="articleId!=null">
+            and `articleId` = #{articleId}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +53,8 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `article_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="articleId!=null">
+            and `articleId` = #{articleId}
         </if>
     </select>
 
@@ -47,8 +75,7 @@
         `sharingPath1Count`,
         `sharingPath2Count`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -66,8 +93,7 @@
         #{sharingPath1Count},
         #{sharingPath2Count},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 

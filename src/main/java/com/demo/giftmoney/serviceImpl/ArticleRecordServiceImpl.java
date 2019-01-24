@@ -1,6 +1,7 @@
 package com.demo.giftmoney.serviceImpl;
 
 import com.demo.giftmoney.domain.ArticleRecord;
+import com.demo.giftmoney.response.ArticleRecordListItemView;
 import com.demo.giftmoney.service.ArticleRecordService;
 import com.demo.giftmoney.mapper.ArticleRecordMapper;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,11 @@ public class ArticleRecordServiceImpl implements ArticleRecordService{
     @Override
     public List<ArticleRecord> selectList(Map<String, Object> map){
         return articleRecordMapper.selectList(map);
+    }
+
+    @Override
+    public List<ArticleRecordListItemView> selectViewList(Map<String, Object> map) {
+        return articleRecordMapper.selectViewList(map);
     }
 
     @Override
