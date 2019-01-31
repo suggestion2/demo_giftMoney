@@ -8,7 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 		"com.demo",
-		"com.sug.core.platform.web"
+		"com.sug.core.platform.web",
+		"com.sug.core.platform.wechat"
 })
 public class GiftmoneyApplication {
 

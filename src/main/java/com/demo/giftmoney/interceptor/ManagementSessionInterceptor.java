@@ -35,6 +35,12 @@ public class ManagementSessionInterceptor extends HandlerInterceptorAdapter {
             throw new LoginRequiredException("loginRequired");
         }
 
+        if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(WechatLoginRequired.class)
+                || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(WechatLoginRequired.class))
+                && Objects.isNull(sessionContext.getUser())) {
+            throw new LoginRequiredException("loginRequired");
+        }
+
         return true;
     }
 

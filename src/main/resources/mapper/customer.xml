@@ -8,8 +8,8 @@
 
     <select id="select" resultType="com.demo.giftmoney.domain.Customer" parameterType="java.util.Map">
         select * from `customer` where `valid` = 1
-        <if test="id!=null">
-            and `id` = #{id}
+        <if test="openid!=null">
+            and `openid` = #{openid}
         </if>
     </select>
 
@@ -62,7 +62,6 @@
         `nickname`,
         `province`,
         `city`,
-        `county`,
         `headimgurl`,
         `openid`,
         `unionid`,
@@ -72,15 +71,13 @@
         `articleRecordId`,
         `level`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
         #{nickname},
         #{province},
         #{city},
-        #{county},
         #{headimgurl},
         #{openid},
         #{unionid},
@@ -90,8 +87,7 @@
         #{articleRecordId},
         #{level},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 

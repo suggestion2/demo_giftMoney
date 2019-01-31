@@ -12,6 +12,8 @@ import java.util.Map;
 public interface CustomerService {
     Customer getById(Integer id);
 
+    Customer getByOpenId(String openid);
+
     Customer select(Map<String, Object> map);
 
     List<Customer> selectList(Map<String, Object> map);

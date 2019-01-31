@@ -7,6 +7,7 @@ import com.demo.giftmoney.mapper.CustomerMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,12 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer getById(Integer id){
         return customerMapper.selectById(id);
     }
+
+    @Override
+    public Customer getByOpenId(String openid) {
+        return customerMapper.select(Collections.singletonMap("openid",openid));
+    }
+
     @Override
     public Customer select(Map<String, Object> map){
         return customerMapper.select(map);
