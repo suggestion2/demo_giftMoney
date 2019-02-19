@@ -23,5 +23,9 @@ public interface ArticleRecordMapper {
 
     int update(ArticleRecord articleRecord);
 
+    int share(ArticleShareParams params);
+
+    int readUpdate(Integer id);
+
     int deleteById(Integer id);
 }

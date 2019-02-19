@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
-public class ManagementSessionInterceptor extends HandlerInterceptorAdapter {
+public class SessionInterceptor extends HandlerInterceptorAdapter {
 
-    private final Logger logger = org.slf4j.LoggerFactory.getLogger(ManagementSessionInterceptor.class);
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(SessionInterceptor.class);
 
     @Autowired
     private SessionContext sessionContext;
@@ -37,7 +37,7 @@ public class ManagementSessionInterceptor extends HandlerInterceptorAdapter {
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(WechatLoginRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(WechatLoginRequired.class))
-                && Objects.isNull(sessionContext.getUser())) {
+                && Objects.isNull(sessionContext.getCustomerId())) {
             throw new LoginRequiredException("loginRequired");
         }
 

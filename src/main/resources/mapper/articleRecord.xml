@@ -63,37 +63,25 @@
         (
         `articleId`,
         `customerId`,
+        `customerNickname`,
+        <if test="parentId!=null">
         `parentId`,
         `sourceCustomerId`,
-        `customerNickname`,
         `sourceCustomerNickname`,
-        `degree`,
-        `duration`,
-        `browseCount`,
-        `pageView`,
-        `sharing`,
-        `sharingPath1Count`,
-        `sharingPath2Count`,
-        `createBy`,
-        `updateBy`
+        </if>
+        `degree`
         )
         values
         (
         #{articleId},
         #{customerId},
+        #{customerNickname},
+        <if test="parentId!=null">
         #{parentId},
         #{sourceCustomerId},
-        #{customerNickname},
         #{sourceCustomerNickname},
-        #{degree},
-        #{duration},
-        #{browseCount},
-        #{pageView},
-        #{sharing},
-        #{sharingPath1Count},
-        #{sharingPath2Count},
-        #{createBy},
-        #{createBy}
+        </if>
+        #{degree}
         )
     </insert>
 
@@ -117,7 +105,27 @@
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
+    <update id="readUpdate" parameterType="java.lang.Integer">
+        update `article_record` set
+        `browseCount` = `browseCount` + 1,
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    <update id="share" parameterType="com.demo.giftmoney.mapper.ArticleShareParams">
+        update `article_record` set
+        `sharing` = 1,
+        <if test="path == 1">
+            `sharingPath1Count` = `sharingPath1Count` + 1,
+        </if>
+        <if test="path == 2">
+            `sharingPath2Count` = `sharingPath2Count` + 1,
+        </if>
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `article_record` set valid = 0 where `id` = #{id}
     </delete>

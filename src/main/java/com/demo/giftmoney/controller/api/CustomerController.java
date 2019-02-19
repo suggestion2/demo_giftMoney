@@ -1,6 +1,7 @@
 package com.demo.giftmoney.controller.api;
 
 import com.demo.giftmoney.context.SessionContext;
+import com.demo.giftmoney.domain.ArticleRecord;
 import com.demo.giftmoney.domain.Customer;
 import com.demo.giftmoney.interceptor.LoginRequired;
 import com.demo.giftmoney.request.CustomerListForm;
@@ -8,6 +9,7 @@ import com.demo.giftmoney.request.CustomerLoginForm;
 import com.demo.giftmoney.request.CustomerStatusForm;
 import com.demo.giftmoney.response.CustomerListView;
 import com.demo.giftmoney.response.CustomerView;
+import com.demo.giftmoney.service.ArticleRecordService;
 import com.demo.giftmoney.service.CustomerService;
 import com.demo.giftmoney.service.UserService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
@@ -32,7 +34,7 @@ import static com.demo.giftmoney.constants.CommonConstants.LIST;
 import static com.demo.giftmoney.constants.CommonConstants.LOGIN;
 import static com.sug.core.platform.wechat.constants.WeChatParams.MP_TYPE;
 
-@RestController
+@RestController("customerApiController")
 @RequestMapping(value = "/api/customer")
 public class CustomerController {
 
@@ -45,47 +47,51 @@ public class CustomerController {
     private CustomerService customerService;
 
     @Autowired
+    private ArticleRecordService articleRecordService;
+
+    @Autowired
     private WeChatAuthService weChatAuthService;
 
-    @RequestMapping(value = LOGIN,method = RequestMethod.POST)
+    @RequestMapping(value = LOGIN, method = RequestMethod.POST)
     public CustomerView login(@Valid @RequestBody CustomerLoginForm form) throws Exception {
-        WeChatOAuthEntity entity = weChatAuthService.getOAuth(form.getCode(),MP_TYPE);
+        WeChatOAuthEntity entity = weChatAuthService.getOAuth(form.getCode(), MP_TYPE);
 
         Customer customer = customerService.getByOpenId(entity.getOpenid());
-        if(Objects.nonNull(customer)){
+        if (Objects.nonNull(customer)) {
             sessionContext.setCustomerId(customer.getId());
+            sessionContext.setOpenId(customer.getOpenid());
+            sessionContext.setCustomerName(customer.getNickname());
             return CustomerView.build(customer);
         }
 
         WeChatUserInfoResponse response = weChatAuthService.getUserInfo(entity);
         customer = new Customer();
-        BeanUtils.copyProperties(response,customer);
+        BeanUtils.copyProperties(response, customer);
 
-        customer.setArticleId(form.getArticleId());
+        customer.setArticleId(Objects.nonNull(form.getArticleId()) ? form.getArticleId() : 0);
         customer.setArticleRecordId(0);
         customer.setLevel(1);
         customer.setParentId(0);
         customer.setParentNickname("");
         customer.setCreateBy(0);
 
-        if(Objects.nonNull(form.getArticleRecordId())){
-            customer.setArticleRecordId(form.getArticleRecordId());
-        }
+        Customer parent;
+        if (Objects.nonNull(form.getCustomerId()) && Objects.nonNull(parent = customerService.getById(form.getCustomerId()))) {
+            customer.setParentId(parent.getId());
+            customer.setParentNickname(parent.getNickname());
+            customer.setLevel(parent.getLevel() + 1);
 
-        if(Objects.nonNull(form.getLevel())){
-            customer.setLevel(form.getLevel());
-        }
-
-        if(Objects.nonNull(form.getCustomerId())){
-            Customer parent = customerService.getById(form.getCustomerId());
-            if(Objects.nonNull(parent)){
-                customer.setParentId(parent.getId());
-                customer.setParentNickname(parent.getNickname());
+            ArticleRecord record;
+            if(Objects.nonNull(form.getArticleId()) && Objects.nonNull(record = articleRecordService.getByCustomerArticle(parent.getId(),form.getArticleId()))){
+                customer.setArticleRecordId(record.getId());
             }
+
         }
 
         customerService.create(customer);
         sessionContext.setCustomerId(customer.getId());
+        sessionContext.setOpenId(customer.getOpenid());
+        sessionContext.setCustomerName(customer.getNickname());
         return CustomerView.build(customer);
     }
 

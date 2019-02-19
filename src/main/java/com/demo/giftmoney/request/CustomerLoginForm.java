@@ -10,12 +10,7 @@ public class CustomerLoginForm {
 
     private Integer customerId;
 
-    @NotNull
     private Integer articleId;
-
-    private Integer articleRecordId;
-
-    private Integer level;
 
     public String getCode() {
         return code;
@@ -39,21 +34,5 @@ public class CustomerLoginForm {
 
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
-    }
-
-    public Integer getArticleRecordId() {
-        return articleRecordId;
-    }
-
-    public void setArticleRecordId(Integer articleRecordId) {
-        this.articleRecordId = articleRecordId;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 }

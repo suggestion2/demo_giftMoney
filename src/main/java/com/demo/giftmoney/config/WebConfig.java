@@ -1,7 +1,7 @@
 package com.demo.giftmoney.config;
 
 import com.demo.giftmoney.exceptionHandler.AsyncExceptionHandler;
-import com.demo.giftmoney.interceptor.ManagementSessionInterceptor;
+import com.demo.giftmoney.interceptor.SessionInterceptor;
 import com.demo.giftmoney.registrar.MyErrorPageRegistrar;
 import com.sug.core.platform.web.filter.PlatformFilter;
 import org.mybatis.spring.annotation.MapperScan;
@@ -68,7 +68,7 @@ public class WebConfig implements WebMvcConfigurer,AsyncConfigurer {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(20);
-        executor.setQueueCapacity(100);
+        executor.setQueueCapacity(1000);
         executor.setThreadNamePrefix("AsyncExecutor-");
         executor.initialize();
         return executor;
@@ -82,15 +82,15 @@ public class WebConfig implements WebMvcConfigurer,AsyncConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 
-        registry.addInterceptor(managementSessionInterceptor())
+        registry.addInterceptor(sessionInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/resources/**","/test/**","/404","/500");
 
     }
 
     @Bean
-    public ManagementSessionInterceptor managementSessionInterceptor(){
-        return new ManagementSessionInterceptor();
+    public SessionInterceptor sessionInterceptor(){
+        return new SessionInterceptor();
     }
 
 }

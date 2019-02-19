@@ -11,6 +11,7 @@ public class GiftmoneyApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

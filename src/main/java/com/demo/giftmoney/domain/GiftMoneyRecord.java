@@ -11,6 +11,8 @@ public class GiftMoneyRecord {
 
     private Integer id;
     @JsonIgnore
+    private String number;
+    @JsonIgnore
     private Integer wechatId;
     private Integer giftMoneyId;
     private Integer articleId;
@@ -195,4 +197,11 @@ public class GiftMoneyRecord {
         this.valid = valid;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }

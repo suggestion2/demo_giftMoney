@@ -99,6 +99,13 @@
         where `id` = #{id}
     </update>
     
+    <update id="deductBalance" parameterType="com.demo.giftmoney.mapper.GiftMoneyDeductBalanceParams">
+        update `gift_money` set
+        `remainAmount` = `remainAmount` - #{remainAmount},
+        `updateTime` = now()
+        where `id` = #{id} and `remainAmount` &gt;= #{remainAmount}
+    </update>
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `gift_money` set valid = 0 where `id` = #{id}
     </delete>

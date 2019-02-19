@@ -1,5 +1,6 @@
 package com.demo.giftmoney.service;
 
+import com.demo.giftmoney.domain.GiftMoney;
 import com.demo.giftmoney.domain.GiftMoneyRecord;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public interface GiftMoneyRecordService {
     List<GiftMoneyRecord> selectList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
+
+    void drawGiftMoney(Integer customerId,String openId, String customerName, Integer articleId, String articleTitle, GiftMoney giftMoney, Integer type) throws Exception;
 
     int create(GiftMoneyRecord giftMoneyRecord);
 

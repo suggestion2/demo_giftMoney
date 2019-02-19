@@ -22,5 +22,7 @@ public interface GiftMoneyMapper {
 
     int updateStatus(GiftMoney giftMoney);
 
+    int deductBalance(GiftMoneyDeductBalanceParams params);
+
     int deleteById(Integer id);
 }
