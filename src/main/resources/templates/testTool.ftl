@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>demo_</title>
+    <title>demo_giftmoney</title>
     <link href="/resources/images/favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/style.css">
@@ -17,7 +17,43 @@
         <button class="tablinks" onclick="openTab(2)">management</button>
     </div>
     <div id="tabs-1" style="width: 2000px;display: none">
+        <div style="float: left; width: 400px;">
+            <h2>用户微信登录</h2>
+            <div>
+                <strong>[登录]</strong><br/>
+                code(微信公众号文档"网页授权"获取code):<input class="textbox" type="text" id="login-code" style="width: 100px;"
+                                                 value=""/><br>
+                customerId(非必填):<input class="textbox" type="text" id="login-customerId" style="width: 100px;"
+                                  value=""/><br>
+                articleId(非必填):<input class="textbox" type="text" id="login-articleId" style="width: 100px;"
+                                 value=""/><br>
+                <input type="button" value="登录" onclick="commonModule.wechatLogin()"/><br>
+            </div>
 
+            <h2>文章(article)</h2>
+            <div>
+                <strong>[详情]</strong><br/>
+                customerId(非必填):<input class="textbox" type="text" id="article-detail-customerId" style="width: 100px;"
+                                  value=""/>
+                articleId:<input class="textbox" type="text" id="article-detail-articleId" style="width: 100px;"
+                                 value=""/>
+                <input type="button" value="详情" onclick="articleModule.apiDetail()"/><br>
+            </div>
+            <div>
+                <strong>[分享]</strong><br/>
+                path:<select class="textbox" id="article-share-path" style="width: 100px;">
+                <option value="1">朋友圈</option>
+                <option value="2">微信群</option>
+            </select><br>
+                <input type="button" value="分享" onclick="articleModule.share()"/><br>
+            </div>
+
+            <h2>红包(giftMoney)</h2>
+            <div>
+                <strong>[领取]</strong><br/>
+                <input type="button" value="领取" onclick="giftMoneyModule.draw()"/><br>
+            </div>
+        </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">
         <div style="float: left; width: 400px;">
@@ -43,9 +79,9 @@
             <div>
                 <strong>[list]</strong><br/>
                 content:<input class="textbox" type="text" id="customer-list-content" style="width: 100px;"
-                           value=""/><br>
+                               value=""/><br>
                 pageIndex:<input class="textbox" type="text" id="customer-list-pageIndex" style="width: 100px;"
-                                  value="0"/>
+                                 value="0"/>
                 pageSize:<input class="textbox" type="text" id="customer-list-pageSize" style="width: 100px;"
                                 value="10"/><br>
                 <input type="button" value="getList" onclick="customerModule.list()"/><br>
@@ -53,7 +89,7 @@
             <div>
                 <strong>[enable/disable]</strong><br/>
                 id:<input class="textbox" type="text" id="customer-status-id" style="width: 100px;"
-                           value="1"/>
+                          value="1"/>
                 status:<select class="textbox" id="customer-status-status" style="width: 100px;">
                 <option value="0">disable</option>
                 <option value="1">enable</option>
@@ -79,52 +115,52 @@
             <div>
                 <strong>[detail]</strong><br/>
                 id:<input class="textbox" type="text" id="giftMoney-detail-id" style="width: 100px;"
-                               value=""/><br>
+                          value=""/><br>
                 <input type="button" value="detail" onclick="giftMoneyModule.detail()"/><br>
             </div>
             <div>
                 <strong>[create]</strong><br/>
                 title:<input class="textbox" type="text" id="giftMoney-create-title" style="width: 100px;"
-                               value=""/>
-                totalAmount:<input class="textbox" type="text" id="giftMoney-create-totalAmount" style="width: 100px;"
-                             value=""/><br>
-                low:<input class="textbox" type="text" id="giftMoney-create-low" style="width: 100px;"
                              value=""/>
-                upper:<input class="textbox" type="text" id="giftMoney-create-upper" style="width: 100px;"
+                totalAmount:<input class="textbox" type="text" id="giftMoney-create-totalAmount" style="width: 100px;"
                                    value=""/><br>
-                startDate:<input class="textbox" type="text" id="giftMoney-create-startDate" style="width: 100px;"
+                low:<input class="textbox" type="text" id="giftMoney-create-low" style="width: 100px;"
                            value=""/>
-                endDate:<input class="textbox" type="text" id="giftMoney-create-endDate" style="width: 100px;"
+                upper:<input class="textbox" type="text" id="giftMoney-create-upper" style="width: 100px;"
                              value=""/><br>
+                startDate:<input class="textbox" type="text" id="giftMoney-create-startDate" style="width: 100px;"
+                                 value=""/>
+                endDate:<input class="textbox" type="text" id="giftMoney-create-endDate" style="width: 100px;"
+                               value=""/><br>
                 areaId:<select class="textbox" id="giftMoney-create-areaId" style="width: 100px;">
                 <option value="0">全部</option>
                 <option value="1">暂时代表有地区</option>
             </select>
                 province:<input class="textbox" type="text" id="giftMoney-create-province" style="width: 100px;"
-                               value=""/><br>
+                                value=""/><br>
                 city:<input class="textbox" type="text" id="giftMoney-create-city" style="width: 100px;"
-                                 value=""/>
+                            value=""/>
                 county:<input class="textbox" type="text" id="giftMoney-create-county" style="width: 100px;"
-                               value=""/><br>
+                              value=""/><br>
                 sharingPath:<select class="textbox" id="giftMoney-create-sharingPath" style="width: 100px;">
                 <option value="1">朋友圈</option>
                 <option value="2">微信群</option>
                 <option value="3">both</option>
             </select>
                 sharingLimit:<input class="textbox" type="text" id="giftMoney-create-sharingLimit" style="width: 100px;"
-                              value=""/><br>
+                                    value=""/><br>
                 <input type="button" value="create" onclick="giftMoneyModule.create()"/><br>
             </div>
             <div>
                 <strong>[update]</strong><br/>
                 id:<input class="textbox" type="text" id="giftMoney-update-id" style="width: 100px;"
-                             value=""/>
+                          value=""/>
                 title:<input class="textbox" type="text" id="giftMoney-update-title" style="width: 100px;"
                              value=""/><br>
                 totalAmount:<input class="textbox" type="text" id="giftMoney-update-totalAmount" style="width: 100px;"
                                    value=""/>
                 remainAmount:<input class="textbox" type="text" id="giftMoney-update-remainAmount" style="width: 100px;"
-                                   value=""/><br>
+                                    value=""/><br>
                 low:<input class="textbox" type="text" id="giftMoney-update-low" style="width: 100px;"
                            value=""/>
                 upper:<input class="textbox" type="text" id="giftMoney-update-upper" style="width: 100px;"
@@ -190,13 +226,13 @@
                 title:<input class="textbox" type="text" id="article-create-title" style="width: 100px;"
                              value=""/>
                 author:<input class="textbox" type="text" id="article-create-author" style="width: 100px;"
-                                   value=""/><br>
+                              value=""/><br>
                 img:<input class="textbox" type="text" id="article-create-img" style="width: 100px;"
                            value=""/>
                 content:<input class="textbox" type="text" id="article-create-content" style="width: 100px;"
-                             value=""/><br>
+                               value=""/><br>
                 giftMoneyId:<input class="textbox" type="text" id="article-create-giftMoneyId" style="width: 100px;"
-                                 value=""/><br>
+                                   value=""/><br>
                 <input type="button" value="create" onclick="articleModule.create()"/><br>
             </div>
             <div>

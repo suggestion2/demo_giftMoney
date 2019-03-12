@@ -2,8 +2,11 @@ package com.demo.giftmoney.interceptor;
 
 import com.demo.giftmoney.context.SessionContext;
 import com.sug.core.platform.exception.LoginRequiredException;
+import com.sug.core.platform.web.rest.runtime.RuntimeEnvironment;
+import com.sug.core.platform.web.rest.runtime.RuntimeSettings;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,6 +22,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private SessionContext sessionContext;
+
+    @Autowired
+    private RuntimeSettings runtimeSettings;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,7 +43,8 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(WechatLoginRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(WechatLoginRequired.class))
-                && Objects.isNull(sessionContext.getCustomerId())) {
+                && Objects.isNull(sessionContext.getCustomerId())
+                && !runtimeSettings.getEnvironment().equals(RuntimeEnvironment.dev)) {
             throw new LoginRequiredException("loginRequired");
         }
 

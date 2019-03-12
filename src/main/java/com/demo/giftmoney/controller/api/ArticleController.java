@@ -67,6 +67,9 @@ public class ArticleController {
 
     @RequestMapping(value = "/share",method = RequestMethod.GET)
     public ResponseView share(@RequestParam("path") Integer path){
+        if(!Objects.equals(path,1) && !Objects.equals(path,2)){
+            throw new InvalidRequestException("invalid path");
+        }
         if(Objects.isNull(sessionContext.getArticleId())){
             throw new InvalidRequestException("read article first");
         }

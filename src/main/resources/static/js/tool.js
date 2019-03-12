@@ -99,6 +99,19 @@ function showResult(settings) {
 }
 
 var commonModule = {
+    wechatLogin: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/login",
+            dataType: "json",
+            data: JSON.stringify({
+                "code": $("#login-code").val(),
+                "customerId": $("#login-customerId").val(),
+                "articleId": $("#login-articleId").val()
+            })
+        };
+        showResult(settings);
+    },
     login: function () {
         var settings = {
             type: "POST",
@@ -158,6 +171,14 @@ var customerModule = {
 };
 
 var giftMoneyModule = {
+    draw: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/giftMoney/draw",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     list: function () {
         var settings = {
             type: "POST",
@@ -241,6 +262,22 @@ var giftMoneyModule = {
 };
 
 var articleModule = {
+    apiDetail: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/article/detail?articleId=" + $("#article-detail-articleId").val() + "&customerId=" + $("#article-detail-customerId").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    share: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/article/share?path=" + $("#article-share-path").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     list: function () {
         var settings = {
             type: "POST",
