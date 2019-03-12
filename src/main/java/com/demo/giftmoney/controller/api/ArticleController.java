@@ -51,7 +51,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/detail",method = RequestMethod.GET)
     public Article detail(@RequestParam("articleId") Integer articleId,@RequestParam(name = "customerId",required = false) Integer sourceCustomerId) throws Exception {
-        if(System.currentTimeMillis() - READ_DURATION < sessionContext.getBeginReadTime()){
+        if(Objects.nonNull(sessionContext.getBeginReadTime()) && System.currentTimeMillis() - READ_DURATION < sessionContext.getBeginReadTime()){
             throw new InvalidRequestException("read time is too short");
         }
         Article article = articleService.getById(articleId);

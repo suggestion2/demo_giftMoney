@@ -5,7 +5,8 @@
 
     code:<input class="textbox" type="text" id="code" style="width: 100px;"
                                      value="${code}"/><br>
-
+    result:<input class="textbox" type="text" id="result" style="width: 100px;"
+                value=""/><br>
     <input type="button" value="login" onclick="login()"/><br>
 </div>
 </body>
@@ -23,8 +24,11 @@
             contentType: "application/json",
             processData: true,
             async : true,
-            success: function () {
-                alert("success");
+            success: function (data) {
+                $("#result").val("success");
+            }
+            error:function(data){
+                $("#result").val("fail");
             }
         })
     }

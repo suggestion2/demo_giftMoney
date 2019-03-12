@@ -13,7 +13,7 @@ public class GiftMoneyRecord {
     @JsonIgnore
     private String number;
     @JsonIgnore
-    private Integer wechatId;
+    private String wechatId;
     private Integer giftMoneyId;
     private Integer articleId;
     private Integer customerId;
@@ -49,13 +49,7 @@ public class GiftMoneyRecord {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getWechatId() {
-        return wechatId;
-    }
 
-    public void setWechatId(Integer wechatId) {
-        this.wechatId = wechatId;
-    }
     public Integer getGiftMoneyId() {
         return giftMoneyId;
     }
@@ -63,6 +57,15 @@ public class GiftMoneyRecord {
     public void setGiftMoneyId(Integer giftMoneyId) {
         this.giftMoneyId = giftMoneyId;
     }
+
+    public String getWechatId() {
+        return wechatId;
+    }
+
+    public void setWechatId(String wechatId) {
+        this.wechatId = wechatId;
+    }
+
     public Integer getArticleId() {
         return articleId;
     }

@@ -8,8 +8,10 @@ import com.demo.giftmoney.service.GiftMoneyRecordService;
 import com.demo.giftmoney.mapper.GiftMoneyRecordMapper;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.platform.wechat.form.WeChatGiftMoneyForm;
+import com.sug.core.platform.wechat.response.WeChatGiftMoneyResponse;
 import com.sug.core.platform.wechat.service.WeChatPayService;
 import com.sug.core.util.BigDecimalUtils;
+import com.sug.core.util.SequenceNumUtils;
 import com.sug.core.util.UUIDUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -57,10 +59,8 @@ public class GiftMoneyRecordServiceImpl implements GiftMoneyRecordService{
     }
 
     @Override
-    @Async
-    @Transactional
     public void drawGiftMoney(Integer customerId,String openId, String customerName, Integer articleId, String articleTitle, GiftMoney giftMoney, Integer type) throws Exception {
-        String number = UUIDUtils.random();
+        String number = SequenceNumUtils.generateShortNum();
 
         GiftMoneyRecord giftMoneyRecord = new GiftMoneyRecord();
         giftMoneyRecord.setNumber(number);
@@ -95,12 +95,13 @@ public class GiftMoneyRecordServiceImpl implements GiftMoneyRecordService{
         form.setTotal_num("1");
         form.setWishing(giftMoney.getTitle());
         form.setAct_name(giftMoney.getTitle());
-        form.setRemark("");
+        form.setRemark("test");
         if(Integer.valueOf(form.getTotal_amount()) < 100){
             form.setScene_id("PRODUCT_1");
         }
 
-        weChatPayService.normalGiftMoney(form);
+        WeChatGiftMoneyResponse response = weChatPayService.normalGiftMoney(form);
+        giftMoneyRecord.setWechatId(response.getSend_listid());
 
         if(giftMoneyMapper.deductBalance(new GiftMoneyDeductBalanceParams(giftMoney.getId(),giftMoneyRecord.getAmount())) == 0){
             throw new InvalidRequestException("deduct balance fail","insufficient balance");

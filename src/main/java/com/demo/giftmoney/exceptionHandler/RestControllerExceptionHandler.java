@@ -36,6 +36,12 @@ public class RestControllerExceptionHandler {
         return errorResponseBuilder.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),e, true);
     }
 
+    @ExceptionHandler(value = Throwable.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public SimpleErrorResponse exception(Throwable e) {
+        return errorResponseBuilder.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),e, true);
+    }
+
     @ExceptionHandler(value = ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public SimpleErrorResponse resourceNotFound(ResourceNotFoundException ex) {

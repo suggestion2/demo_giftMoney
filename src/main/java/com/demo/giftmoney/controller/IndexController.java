@@ -15,7 +15,7 @@ import java.util.Map;
 public class IndexController {
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    @RequestMapping(value = "/testTool", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String testTool(Map<String, Object> model, HttpServletRequest request){
         model.put("request", request);
         return "testTool";

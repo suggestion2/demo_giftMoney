@@ -10,7 +10,7 @@
 
 <script language="javascript" type="text/javascript">
     function login(){
-        window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx53e400e835707585&redirect_uri=http://hb.renmings.com/wechat/auth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
     }
 </script>
 </html>
