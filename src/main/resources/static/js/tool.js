@@ -132,6 +132,18 @@ var commonModule = {
         };
         showResult(settings);
     },
+    resetPassword: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/password/reset",
+            dataType: "json",
+            data: JSON.stringify({
+                "originPassword": $("#reset-originPassword").val(),
+                "newPassword": $("#reset-newPassword").val()
+            })
+        };
+        showResult(settings);
+    },
     logout: function () {
         var settings = {
             type: "GET",

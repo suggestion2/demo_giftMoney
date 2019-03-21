@@ -25,6 +25,7 @@
     
     <select id="selectItemViewList" resultType="com.demo.giftmoney.response.CustomerListItemView" parameterType="java.util.Map">
         select
+        `c`.id
         `c`.nickname,
         concat(`c`.province,`c`.city,`c`.county) as area,
         `c`.parentNickname,
@@ -41,7 +42,7 @@
         left join article_record `as` on `c`.id = `as`.sourceCustomerId and `as`.valid = 1
         where `c`.`valid` = 1
         <if test="content!=null">
-            `c`.nickname like concat('%',#{content},'%')
+            and `c`.nickname like concat('%',#{content},'%')
         </if>
         group by `c`.id
         <if test="startIndex != null and pageSize != null">

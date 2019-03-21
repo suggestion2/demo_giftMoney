@@ -3,6 +3,7 @@ package com.demo.giftmoney.response;
 import java.util.Objects;
 
 public class CustomerListItemView {
+    private Integer id;
     private String nickname;
     private String area;
     private String parentNickname;
@@ -13,6 +14,14 @@ public class CustomerListItemView {
     private Integer directPV;
     private Integer directUV;
     private Integer status;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNickname() {
         return nickname;

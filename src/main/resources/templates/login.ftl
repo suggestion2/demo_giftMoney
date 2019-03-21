@@ -1,9 +1,14 @@
 <html>
+<head>
+    <style type="text/css">
+        body{ font-size:12px; line-height:24px;}.exp{font-size:x-large;}
+    </style>
+</head>
 <body>
-<div>
+<div class="exp">
     test Login
 
-    <input type="button" value="login" onclick="login()"/><br>
+    <input type="button" value="login" size="15" onclick="login()"/><br>
 </div>
 </body>
 

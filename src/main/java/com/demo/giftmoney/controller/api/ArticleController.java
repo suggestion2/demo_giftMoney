@@ -61,6 +61,7 @@ public class ArticleController {
         articleRecordService.read(sessionContext.getCustomerId(),sessionContext.getOpenId(),sessionContext.getCustomerName(),articleId,article.getTitle(),article.getGiftMoneyId(),sourceCustomerId);
         sessionContext.setGiftMoneyId(article.getGiftMoneyId());
         sessionContext.setArticleId(articleId);
+        sessionContext.setArticleTitle(article.getTitle());
         sessionContext.setBeginReadTime();
         return article;
     }

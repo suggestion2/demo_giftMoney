@@ -71,6 +71,14 @@
                 <input type="button" value="获取" onclick="commonModule.currentUser()"/><br>
             </div>
             <div>
+                <strong>[重置密码]</strong><br/>
+                旧密码:<input class="textbox" type="text" id="reset-originPassword" style="width: 100px;"
+                           value="123456"/>
+                新密码:<input class="textbox" type="text" id="reset-newPassword" style="width: 100px;"
+                          value="654321"/>
+                <input type="button" value="登录" onclick="commonModule.resetPassword()"/><br>
+            </div>
+            <div>
                 <strong>[登出]</strong><br/>
                 <input type="button" value="登出" onclick="commonModule.logout()"/><br>
             </div>

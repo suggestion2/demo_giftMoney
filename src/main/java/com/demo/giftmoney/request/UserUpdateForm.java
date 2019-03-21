@@ -11,8 +11,6 @@ public class UserUpdateForm {
     private Integer id;
     @NotEmpty
     private String name;
-    @NotEmpty
-    private String password;
     @NotNull
     private Integer admin;
 
@@ -29,13 +27,6 @@ public class UserUpdateForm {
 
     public void setName(String name) {
     this.name = name;
-    }
-    public String getPassword() {
-    return password;
-    }
-
-    public void setPassword(String password) {
-    this.password = password;
     }
     public Integer getAdmin() {
     return admin;

@@ -105,7 +105,7 @@ public class ArticleController {
         if(Objects.isNull(article)){
             throw new ResourceNotFoundException("article not exists");
         }
-        if(article.getStatus().equals(ENABLED)){
+        if(!article.getStatus().equals(ENABLED) && !article.getStatus().equals(DISABLED)){
             throw new InvalidRequestException("invalidStatus","invalid article status");
         }
         BeanUtils.copyProperties(form,article);
