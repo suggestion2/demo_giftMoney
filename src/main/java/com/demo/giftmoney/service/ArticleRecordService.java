@@ -30,6 +30,8 @@ public interface ArticleRecordService {
 
     void read(Integer customerId,String openId, String customerName, Integer articleId,String articleTitle,Integer giftMoneyId, Integer sourceCustomerId) throws Exception;
 
+    void addDuration(Integer customerId,Integer articleId, Long duration);
+
     int update(ArticleRecord articleRecord);
 
     int deleteById(Integer id);

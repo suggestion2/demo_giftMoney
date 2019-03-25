@@ -23,9 +23,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private SessionContext sessionContext;
 
-    @Autowired
-    private RuntimeSettings runtimeSettings;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.debug("SessionInterceptor ----------preHandle------------, URI=" + request.getRequestURI());
@@ -43,8 +40,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(WechatLoginRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(WechatLoginRequired.class))
-                && Objects.isNull(sessionContext.getCustomerId())
-                && !runtimeSettings.getEnvironment().equals(RuntimeEnvironment.dev)) {
+                && Objects.isNull(sessionContext.getCustomerId())) {
             throw new LoginRequiredException("loginRequired");
         }
 

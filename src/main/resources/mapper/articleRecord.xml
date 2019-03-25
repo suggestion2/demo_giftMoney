@@ -8,8 +8,11 @@
 
     <select id="select" resultType="com.demo.giftmoney.domain.ArticleRecord" parameterType="java.util.Map">
         select * from `article_record` where `valid` = 1
-        <if test="id!=null">
-            and `id` = #{id}
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
+        <if test="articleId!=null">
+            and `articleId` = #{articleId}
         </if>
     </select>
     
@@ -109,6 +112,13 @@
     <update id="readUpdate" parameterType="java.lang.Integer">
         update `article_record` set
         `browseCount` = `browseCount` + 1,
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    <update id="readDuration" parameterType="com.demo.giftmoney.request.ArticleReadTimeForm">
+        update `article_record` set
+        `duration` = `duration` + #{duration},
         `updateTime` = now()
         where `id` = #{id}
     </update>

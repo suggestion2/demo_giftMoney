@@ -6,6 +6,7 @@ import com.demo.giftmoney.domain.Customer;
 import com.demo.giftmoney.domain.GiftMoney;
 import com.demo.giftmoney.mapper.ArticleShareParams;
 import com.demo.giftmoney.mapper.CustomerMapper;
+import com.demo.giftmoney.request.ArticleReadTimeForm;
 import com.demo.giftmoney.response.ArticleRecordListItemView;
 import com.demo.giftmoney.service.ArticleRecordService;
 import com.demo.giftmoney.mapper.ArticleRecordMapper;
@@ -110,18 +111,26 @@ public class ArticleRecordServiceImpl implements ArticleRecordService{
             articleRecord.setSourceCustomerId(parent.getId());
             articleRecord.setSourceCustomerNickname(parent.getNickname());
             articleRecord.setDegree(articleRecord.getDegree() + 1);
+
+            GiftMoney giftMoney = giftMoneyService.getById(giftMoneyId);
+            if(Objects.nonNull(giftMoney)){
+                giftMoneyRecordService.drawGiftMoney(parent.getId(),parent.getOpenid(),parent.getNickname(),articleId,articleTitle,giftMoney,SHARE_TYPE);
+            }
         }
 
         result = articleRecordMapper.insert(articleRecord);
         if(result == 0){
             throw new RuntimeException("insert articleRecord fail : customerId " + customerId + " articleId " + articleId);
         }
-
-        GiftMoney giftMoney = giftMoneyService.getById(giftMoneyId);
-        if(Objects.nonNull(giftMoney)){
-            giftMoneyRecordService.drawGiftMoney(customerId,openId,customerName,articleId,articleTitle,giftMoney,SHARE_TYPE);
-        }
     }
+
+    @Override
+    @Async
+    public void addDuration(Integer customerId, Integer articleId, Long duration) {
+        ArticleRecord articleRecord = this.getByCustomerArticle(customerId,articleId);
+        articleRecordMapper.readDuration(new ArticleReadTimeForm(articleRecord.getId(),duration));
+    }
+
 
     @Override
     public int update(ArticleRecord articleRecord){

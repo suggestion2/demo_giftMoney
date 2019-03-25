@@ -54,6 +54,7 @@ public class CustomerController {
 
     @RequestMapping(value = LOGIN, method = RequestMethod.POST)
     public CustomerView login(@Valid @RequestBody CustomerLoginForm form) throws Exception {
+
         WeChatOAuthEntity entity = weChatAuthService.getOAuth(form.getCode(), MP_TYPE);
 
         Customer customer = customerService.getByOpenId(entity.getOpenid());
@@ -61,6 +62,7 @@ public class CustomerController {
             sessionContext.setCustomerId(customer.getId());
             sessionContext.setOpenId(customer.getOpenid());
             sessionContext.setCustomerName(customer.getNickname());
+            logger.error("login : " + sessionContext.getCustomerId());
             return CustomerView.build(customer);
         }
 
@@ -92,6 +94,7 @@ public class CustomerController {
         sessionContext.setCustomerId(customer.getId());
         sessionContext.setOpenId(customer.getOpenid());
         sessionContext.setCustomerName(customer.getNickname());
+        logger.error("register : " + sessionContext.getCustomerId());
         return CustomerView.build(customer);
     }
 

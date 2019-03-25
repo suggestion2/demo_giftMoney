@@ -25,7 +25,7 @@
     
     <select id="selectItemViewList" resultType="com.demo.giftmoney.response.CustomerListItemView" parameterType="java.util.Map">
         select
-        `c`.id
+        `c`.id,
         `c`.nickname,
         concat(`c`.province,`c`.city,`c`.county) as area,
         `c`.parentNickname,

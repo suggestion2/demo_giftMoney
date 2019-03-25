@@ -2,6 +2,7 @@ package com.demo.giftmoney.controller.api;
 
 import com.demo.giftmoney.context.SessionContext;
 import com.demo.giftmoney.domain.GiftMoney;
+import com.demo.giftmoney.domain.GiftMoneyRecord;
 import com.demo.giftmoney.interceptor.LoginRequired;
 import com.demo.giftmoney.interceptor.WechatLoginRequired;
 import com.demo.giftmoney.request.GiftMoneyCreateForm;
@@ -9,6 +10,7 @@ import com.demo.giftmoney.request.GiftMoneyListForm;
 import com.demo.giftmoney.request.GiftMoneyStatusForm;
 import com.demo.giftmoney.request.GiftMoneyUpdateForm;
 import com.demo.giftmoney.response.GiftMoneyListView;
+import com.demo.giftmoney.service.ArticleRecordService;
 import com.demo.giftmoney.service.GiftMoneyRecordService;
 import com.demo.giftmoney.service.GiftMoneyService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
@@ -25,6 +27,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import static com.demo.giftmoney.constants.ArticleConstants.READ_DURATION;
 import static com.demo.giftmoney.constants.CommonConstants.*;
 import static com.demo.giftmoney.constants.GiftMoneyConstants.*;
 
@@ -42,6 +45,9 @@ public class GiftMoneyController {
     private GiftMoneyRecordService giftMoneyRecordService;
 
     @Autowired
+    private ArticleRecordService articleRecordService;
+
+    @Autowired
     private SessionContext sessionContext;
 
     @RequestMapping(value = "/draw",method = RequestMethod.GET)
@@ -50,6 +56,18 @@ public class GiftMoneyController {
         if(Objects.isNull(sessionContext.getGiftMoneyId()) || Objects.isNull(giftMoney = giftMoneyService.getById(sessionContext.getGiftMoneyId()))){
             throw new ResourceNotFoundException("giftmoney not found");
         }
+        if(Objects.nonNull(sessionContext.getBeginReadTime()) && System.currentTimeMillis() - READ_DURATION < sessionContext.getBeginReadTime()){
+            throw new InvalidRequestException("read time is too short");
+        }
+        Long duration = System.currentTimeMillis() - sessionContext.getBeginReadTime();
+        if(giftMoney.getStatus().equals(0)){
+            throw new InvalidRequestException("invalid status","红包下架");
+        }
+        GiftMoneyRecord giftMoneyRecord = giftMoneyRecordService.getUnique(sessionContext.getCustomerId(),sessionContext.getArticleId());
+        if(Objects.nonNull(giftMoneyRecord)){
+            throw new InvalidRequestException("record exists","红包已经领取");
+        }
+        articleRecordService.addDuration(sessionContext.getCustomerId(),sessionContext.getArticleId(),duration);
         giftMoneyRecordService.drawGiftMoney(sessionContext.getCustomerId(),sessionContext.getOpenId(),sessionContext.getCustomerName(),sessionContext.getArticleId(),sessionContext.getArticleTitle(),giftMoney,READ_TYPE);
         return new ResponseView();
     }

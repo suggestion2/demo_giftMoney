@@ -1,6 +1,7 @@
 package com.demo.giftmoney.mapper;
 
 import com.demo.giftmoney.domain.ArticleRecord;
+import com.demo.giftmoney.request.ArticleReadTimeForm;
 import com.demo.giftmoney.response.ArticleRecordListItemView;
 
 import java.util.HashMap;
@@ -26,6 +27,8 @@ public interface ArticleRecordMapper {
     int share(ArticleShareParams params);
 
     int readUpdate(Integer id);
+
+    int readDuration(ArticleReadTimeForm articleReadTimeForm);
 
     int deleteById(Integer id);
 }

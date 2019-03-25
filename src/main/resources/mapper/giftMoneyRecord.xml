@@ -8,8 +8,11 @@
 
     <select id="select" resultType="com.demo.giftmoney.domain.GiftMoneyRecord" parameterType="java.util.Map">
         select * from `gift_money_record` where `valid` = 1
-        <if test="id!=null">
-            and `id` = #{id}
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
+        <if test="articleId!=null">
+            and `articleId` = #{articleId}
         </if>
     </select>
 

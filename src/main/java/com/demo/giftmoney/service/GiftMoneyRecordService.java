@@ -14,6 +14,8 @@ public interface GiftMoneyRecordService {
 
     GiftMoneyRecord select(Map<String, Object> map);
 
+    GiftMoneyRecord getUnique(Integer customerId,Integer articleId);
+
     List<GiftMoneyRecord> selectList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);

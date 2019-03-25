@@ -49,6 +49,15 @@ public class GiftMoneyRecordServiceImpl implements GiftMoneyRecordService{
     }
 
     @Override
+    public GiftMoneyRecord getUnique(Integer customerId, Integer articleId) {
+        Map<String,Object> query = new HashMap<>();
+        query.put("customerId",customerId);
+        query.put("articleId",articleId);
+        return giftMoneyRecordMapper.select(query);
+    }
+
+
+    @Override
     public List<GiftMoneyRecord> selectList(Map<String, Object> map){
         return giftMoneyRecordMapper.selectList(map);
     }
@@ -58,6 +67,7 @@ public class GiftMoneyRecordServiceImpl implements GiftMoneyRecordService{
         return giftMoneyRecordMapper.selectCount(map);
     }
 
+    @Async
     @Override
     public void drawGiftMoney(Integer customerId,String openId, String customerName, Integer articleId, String articleTitle, GiftMoney giftMoney, Integer type) throws Exception {
         String number = SequenceNumUtils.generateShortNum();
@@ -95,7 +105,7 @@ public class GiftMoneyRecordServiceImpl implements GiftMoneyRecordService{
         form.setTotal_num("1");
         form.setWishing(giftMoney.getTitle());
         form.setAct_name(giftMoney.getTitle());
-        form.setRemark("test");
+        form.setRemark("赞云科技");
         if(Integer.valueOf(form.getTotal_amount()) < 100){
             form.setScene_id("PRODUCT_1");
         }

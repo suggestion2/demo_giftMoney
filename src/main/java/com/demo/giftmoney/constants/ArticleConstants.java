@@ -7,6 +7,6 @@ public class ArticleConstants {
     public static final int BASE_DEGREE = 1;
 
     //millisecond
-    public static final long READ_DURATION = 5000;
-    public static final long SHARE_DURATION = 1000;
+    public static final long READ_DURATION = 1000;
+    public static final long SHARE_DURATION = 500;
 }
