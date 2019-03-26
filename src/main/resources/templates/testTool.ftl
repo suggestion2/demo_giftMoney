@@ -28,6 +28,12 @@
                 articleId(非必填):<input class="textbox" type="text" id="login-articleId" style="width: 100px;"
                                  value=""/><br>
                 <input type="button" value="登录" onclick="commonModule.wechatLogin()"/><br>
+                <div>
+                    <strong>[js参数]</strong><br/>
+                    url(进行js注册的页面的url):<input class="textbox" type="text" id="wechat-js-url1" style="width: 100px;"
+                                              value=""/><br>
+                    <input type="button" value="获取" onclick="commonModule.shareParams()"/><br>
+                </div>
             </div>
 
             <h2>文章(article)</h2>
@@ -40,6 +46,12 @@
                 <input type="button" value="详情" onclick="articleModule.apiDetail()"/><br>
             </div>
             <div>
+                <strong>[js参数]</strong><br/>
+                url(进行js注册的页面的url):<input class="textbox" type="text" id="wechat-js-url" style="width: 100px;"
+                                          value=""/><br>
+                <input type="button" value="获取" onclick="articleModule.shareParams()"/><br>
+            </div>
+            <div>
                 <strong>[分享]</strong><br/>
                 path:<select class="textbox" id="article-share-path" style="width: 100px;">
                 <option value="1">朋友圈</option>
@@ -47,6 +59,7 @@
             </select><br>
                 <input type="button" value="分享" onclick="articleModule.share()"/><br>
             </div>
+
 
             <h2>红包(giftMoney)</h2>
             <div>
@@ -209,6 +222,10 @@
         </div>
         <div style="float: left; width: 400px;">
             <h2>文章(article)</h2>
+            <div>
+                <strong>[图片上传参数]</strong><br/>
+                <input type="button" value="获取" onclick="commonModule.uploadParams()"/><br>
+            </div>
             <div>
                 <strong>[list]</strong><br/>
                 content:<input class="textbox" type="text" id="article-list-content" style="width: 100px;"

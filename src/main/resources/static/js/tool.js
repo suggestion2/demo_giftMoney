@@ -112,6 +112,17 @@ var commonModule = {
         };
         showResult(settings);
     },
+    shareParams: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/shareParams",
+            dataType: "json",
+            data: JSON.stringify({
+                "url": $("#wechat-js-url1").val()
+            })
+        };
+        showResult(settings);
+    },
     login: function () {
         var settings = {
             type: "POST",
@@ -128,6 +139,14 @@ var commonModule = {
         var settings = {
             type: "GET",
             url: "/management/current",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    uploadParams: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/uploadParams",
             dataType: "json"
         };
         showResult(settings);
@@ -287,6 +306,17 @@ var articleModule = {
             type: "GET",
             url: "/api/article/share?path=" + $("#article-share-path").val(),
             dataType: "json"
+        };
+        showResult(settings);
+    },
+    shareParams: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/article/shareParams",
+            dataType: "json",
+            data: JSON.stringify({
+                "url": $("#wechat-js-url").val()
+            })
         };
         showResult(settings);
     },

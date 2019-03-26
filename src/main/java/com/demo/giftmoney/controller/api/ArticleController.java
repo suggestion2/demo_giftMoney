@@ -6,10 +6,7 @@ import com.demo.giftmoney.domain.ArticleRecord;
 import com.demo.giftmoney.domain.GiftMoney;
 import com.demo.giftmoney.interceptor.LoginRequired;
 import com.demo.giftmoney.interceptor.WechatLoginRequired;
-import com.demo.giftmoney.request.ArticleCreateForm;
-import com.demo.giftmoney.request.ArticleListForm;
-import com.demo.giftmoney.request.ArticleStatusForm;
-import com.demo.giftmoney.request.ArticleUpdateForm;
+import com.demo.giftmoney.request.*;
 import com.demo.giftmoney.response.ArticleListView;
 import com.demo.giftmoney.response.ArticleShareView;
 import com.demo.giftmoney.service.ArticleRecordService;
@@ -17,6 +14,10 @@ import com.demo.giftmoney.service.ArticleService;
 import com.demo.giftmoney.service.GiftMoneyService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
+import com.sug.core.platform.wechat.constants.WeChatJsInter;
+import com.sug.core.platform.wechat.request.WeChatJsConfigForm;
+import com.sug.core.platform.wechat.response.WeChatJsConfigResponse;
+import com.sug.core.platform.wechat.service.WeChatJsParamsService;
 import com.sug.core.rest.view.ResponseView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import static com.demo.giftmoney.constants.ArticleConstants.ENABLED;
@@ -45,6 +48,9 @@ public class ArticleController {
 
     @Autowired
     private ArticleRecordService articleRecordService;
+
+    @Autowired
+    private WeChatJsParamsService weChatJsParamsService;
 
     @Autowired
     private SessionContext sessionContext;
@@ -87,5 +93,13 @@ public class ArticleController {
         articleRecordService.share(articleRecord.getId(),path);
         sessionContext.setLastShareTime();
         return new ResponseView();
+    }
+
+    @RequestMapping(value = "/shareParams",method = RequestMethod.POST)
+    public WeChatJsConfigResponse getWechatShareJsParams(@Valid @RequestBody WeChatJsConfigForm form) throws Exception {
+        List<String> interfaceList = new ArrayList<>();
+        interfaceList.add(WeChatJsInter.TIMELINE_SHARE_2);
+        interfaceList.add(WeChatJsInter.APPMESSAGE_SHARE_2);
+        return weChatJsParamsService.getJsConfigParams(form.getUrl(),interfaceList);
     }
 }
