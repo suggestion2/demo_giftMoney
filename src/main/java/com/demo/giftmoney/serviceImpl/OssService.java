@@ -35,4 +35,9 @@ public class OssService {
         view.setHost(endPoint);
         return view;
     }
+
+    public String getBucket(ImageConstants type){
+        return host + type.getUrl();
+    }
+
 }
