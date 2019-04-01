@@ -1,6 +1,7 @@
 package com.demo.giftmoney.controller.api;
 
 import com.demo.giftmoney.context.SessionContext;
+import com.demo.giftmoney.domain.Customer;
 import com.demo.giftmoney.domain.GiftMoney;
 import com.demo.giftmoney.domain.GiftMoneyRecord;
 import com.demo.giftmoney.interceptor.LoginRequired;
@@ -11,6 +12,7 @@ import com.demo.giftmoney.request.GiftMoneyStatusForm;
 import com.demo.giftmoney.request.GiftMoneyUpdateForm;
 import com.demo.giftmoney.response.GiftMoneyListView;
 import com.demo.giftmoney.service.ArticleRecordService;
+import com.demo.giftmoney.service.CustomerService;
 import com.demo.giftmoney.service.GiftMoneyRecordService;
 import com.demo.giftmoney.service.GiftMoneyService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
@@ -21,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,6 +51,9 @@ public class GiftMoneyController {
     private ArticleRecordService articleRecordService;
 
     @Autowired
+    private CustomerService customerService;
+
+    @Autowired
     private SessionContext sessionContext;
 
     @RequestMapping(value = "/draw",method = RequestMethod.GET)
@@ -62,6 +68,13 @@ public class GiftMoneyController {
         Long duration = System.currentTimeMillis() - sessionContext.getBeginReadTime();
         if(giftMoney.getStatus().equals(0)){
             throw new InvalidRequestException("invalid status","红包下架");
+        }
+        if(giftMoney.getStartDate().getTime() > System.currentTimeMillis() || giftMoney.getEndDate().getTime() < System.currentTimeMillis()){
+            throw new InvalidRequestException("invalid time","红包未生效或已过期");
+        }
+        Customer customer = customerService.getById(sessionContext.getCustomerId());
+        if(StringUtils.hasText(giftMoney.getProvince()) && !giftMoney.getProvince().contains(customer.getProvince()) || StringUtils.hasText(giftMoney.getCity()) && !giftMoney.getCity().contains(customer.getCity())){
+            throw new InvalidRequestException("invalid area","红包在该区域不可用");
         }
         GiftMoneyRecord giftMoneyRecord = giftMoneyRecordService.getUnique(sessionContext.getCustomerId(),sessionContext.getArticleId());
         if(Objects.nonNull(giftMoneyRecord)){
