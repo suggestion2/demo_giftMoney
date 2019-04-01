@@ -73,7 +73,10 @@ public class GiftMoneyController {
             throw new InvalidRequestException("invalid time","红包未生效或已过期");
         }
         Customer customer = customerService.getById(sessionContext.getCustomerId());
-        if(StringUtils.hasText(giftMoney.getProvince()) && !giftMoney.getProvince().contains(customer.getProvince()) || StringUtils.hasText(giftMoney.getCity()) && !giftMoney.getCity().contains(customer.getCity())){
+        if(customer.getStatus().equals(0)){
+            throw new InvalidRequestException("invalid customer status","当前用户被禁用");
+        }
+        if(!giftMoney.getAreaId().equals(0) && (StringUtils.hasText(giftMoney.getProvince()) && !giftMoney.getProvince().contains(customer.getProvince()) || StringUtils.hasText(giftMoney.getCity()) && !giftMoney.getCity().contains(customer.getCity()))){
             throw new InvalidRequestException("invalid area","红包在该区域不可用");
         }
         GiftMoneyRecord giftMoneyRecord = giftMoneyRecordService.getUnique(sessionContext.getCustomerId(),sessionContext.getArticleId());

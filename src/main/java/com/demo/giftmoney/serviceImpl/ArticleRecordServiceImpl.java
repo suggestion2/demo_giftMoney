@@ -86,8 +86,8 @@ public class ArticleRecordServiceImpl implements ArticleRecordService{
     }
 
     @Override
-    /*@Async
-    @Transactional*/
+    @Async
+    @Transactional
     public void read(Integer customerId,String openId,String customerName, Integer articleId,String articleTitle,Integer giftMoneyId, Integer sourceCustomerId) throws Exception {
         int result;
         ArticleRecord articleRecord = this.getByCustomerArticle(customerId,articleId);

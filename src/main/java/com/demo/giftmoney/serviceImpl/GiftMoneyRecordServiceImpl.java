@@ -67,7 +67,7 @@ public class GiftMoneyRecordServiceImpl implements GiftMoneyRecordService{
         return giftMoneyRecordMapper.selectCount(map);
     }
 
-//    @Async
+    @Async
     @Override
     public void drawGiftMoney(Integer customerId,String openId, String customerName, Integer articleId, String articleTitle, GiftMoney giftMoney, Integer type) throws Exception {
         String number = SequenceNumUtils.generateShortNum();
