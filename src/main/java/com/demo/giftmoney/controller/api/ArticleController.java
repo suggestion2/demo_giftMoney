@@ -40,7 +40,7 @@ import static com.demo.giftmoney.serviceImpl.ImageConstants.ARTICLE;
 
 @RestController("articleApiController")
 @RequestMapping(value = "/api/article")
-//@WechatLoginRequired
+@WechatLoginRequired
 public class ArticleController {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
