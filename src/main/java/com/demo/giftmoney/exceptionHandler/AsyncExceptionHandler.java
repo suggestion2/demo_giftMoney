@@ -14,12 +14,11 @@ public class AsyncExceptionHandler implements AsyncUncaughtExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(AsyncExceptionHandler.class);
 
-    @Autowired
-    protected SimpleErrorResponseBuilder errorResponseBuilder;
-
     @Override
     public void handleUncaughtException(Throwable throwable, Method method, Object... obj) {
-        errorResponseBuilder.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),throwable, true);
+        String errorMessage = ExceptionUtils.stackTrace(throwable);
+        logger.error("async method fail,method : " + method.getName());
+        logger.error(errorMessage);
     }
 
 

@@ -62,7 +62,6 @@ public class CustomerController {
             sessionContext.setCustomerId(customer.getId());
             sessionContext.setOpenId(customer.getOpenid());
             sessionContext.setCustomerName(customer.getNickname());
-            logger.error("login : " + sessionContext.getCustomerId());
             return CustomerView.build(customer);
         }
 
@@ -94,7 +93,6 @@ public class CustomerController {
         sessionContext.setCustomerId(customer.getId());
         sessionContext.setOpenId(customer.getOpenid());
         sessionContext.setCustomerName(customer.getNickname());
-        logger.error("register : " + sessionContext.getCustomerId());
         return CustomerView.build(customer);
     }
 
