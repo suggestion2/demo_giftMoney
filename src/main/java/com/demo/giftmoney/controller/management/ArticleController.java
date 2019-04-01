@@ -5,6 +5,7 @@ import com.demo.giftmoney.domain.GiftMoney;
 import com.demo.giftmoney.interceptor.LoginRequired;
 import com.demo.giftmoney.request.ArticleStatusForm;
 import com.demo.giftmoney.service.GiftMoneyService;
+import com.demo.giftmoney.serviceImpl.OssService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
@@ -28,6 +29,7 @@ import java.util.Objects;
 import static com.demo.giftmoney.constants.ArticleConstants.DISABLED;
 import static com.demo.giftmoney.constants.ArticleConstants.ENABLED;
 import static com.demo.giftmoney.constants.CommonConstants.*;
+import static com.demo.giftmoney.serviceImpl.ImageConstants.ARTICLE;
 
 @RestController
 @RequestMapping(value = "/management/article")
@@ -45,6 +47,9 @@ public class ArticleController {
     @Autowired
     private SessionContext sessionContext;
 
+    @Autowired
+    private OssService ossService;
+
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public ArticleListView list(@Valid @RequestBody ArticleListForm form){
         return new ArticleListView(articleService.selectViewList(form.getQueryMap()),articleService.selectCount(form.getQueryMap()));
@@ -56,6 +61,7 @@ public class ArticleController {
         if(Objects.isNull(article)){
             throw new ResourceNotFoundException("article not found");
         }
+        article.setImg(ossService.getBucket(ARTICLE) + article.getImg());
         return article;
     }
 

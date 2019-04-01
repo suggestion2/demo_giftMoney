@@ -12,6 +12,7 @@ import com.demo.giftmoney.response.ArticleShareView;
 import com.demo.giftmoney.service.ArticleRecordService;
 import com.demo.giftmoney.service.ArticleService;
 import com.demo.giftmoney.service.GiftMoneyService;
+import com.demo.giftmoney.serviceImpl.OssService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.platform.wechat.constants.WeChatJsInter;
@@ -35,6 +36,7 @@ import static com.demo.giftmoney.constants.ArticleConstants.ENABLED;
 import static com.demo.giftmoney.constants.ArticleConstants.READ_DURATION;
 import static com.demo.giftmoney.constants.ArticleConstants.SHARE_DURATION;
 import static com.demo.giftmoney.constants.CommonConstants.*;
+import static com.demo.giftmoney.serviceImpl.ImageConstants.ARTICLE;
 
 @RestController("articleApiController")
 @RequestMapping(value = "/api/article")
@@ -55,6 +57,9 @@ public class ArticleController {
     @Autowired
     private SessionContext sessionContext;
 
+    @Autowired
+    private OssService ossService;
+
     @RequestMapping(value = "/detail",method = RequestMethod.GET)
     public Article detail(@RequestParam("articleId") Integer articleId,@RequestParam(name = "customerId",required = false) Integer sourceCustomerId) throws Exception {
         if(Objects.nonNull(sourceCustomerId) && sourceCustomerId.equals(sessionContext.getCustomerId())){
@@ -72,6 +77,7 @@ public class ArticleController {
         sessionContext.setArticleId(articleId);
         sessionContext.setArticleTitle(article.getTitle());
         sessionContext.setBeginReadTime();
+        article.setImg(ossService.getBucket(ARTICLE) + article.getImg());
         return article;
     }
 
