@@ -105,7 +105,7 @@ public class ArticleRecordServiceImpl implements ArticleRecordService{
         articleRecord.setDegree(BASE_DEGREE);
 
         ArticleRecord parentRecord;
-        if(Objects.nonNull(sourceCustomerId) && Objects.nonNull(parentRecord = this.getByCustomerArticle(sourceCustomerId,articleId))){
+        if(Objects.nonNull(sourceCustomerId) && !customerId.equals(sourceCustomerId) && Objects.nonNull(parentRecord = this.getByCustomerArticle(sourceCustomerId,articleId))){
             Customer parent = customerMapper.selectById(sourceCustomerId);
             articleRecord.setParentId(parentRecord.getId());
             articleRecord.setSourceCustomerId(parent.getId());
